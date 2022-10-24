@@ -1,28 +1,41 @@
+
 module.exports =  (sequelize, Sequelize) => {
-    const User = sequelize.define("user", {
-      name: {
+    const Event = sequelize.define("event", {
+      title: {
         type: Sequelize.STRING,
       },
-      email: {
+      speakers: {
+        type: Sequelize.STRING,
+      },
+      category: {
         type: Sequelize.STRING,
         
       },
-      password: {
-        type: Sequelize.STRING,
+      description: {
+        type: Sequelize.TEXT,
         
       },
-      img: {
+      media: {
         type: Sequelize.STRING,
       },
-      isAdmin: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: false,
+      sponsors: {
+        type: Sequelize.JSON,
+        
+      },
+      partners: {
+        type: Sequelize.JSON,
+       
+      },
+      created_at: {
+        type: 'TIMESTAMP',
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+        allowNull: false
+      },
+      updated_at: {
+        type: 'TIMESTAMP',
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+        allowNull: false
       }
     });
-   User.associate = models => {
-    User.hasMany(models.Post, {
-      onDelete:"cascade"
-    });
-   };
-    return User;
+    return Event;
   };

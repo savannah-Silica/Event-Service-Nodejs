@@ -18,3 +18,6 @@ const sequelize = new Sequelize(process.env.DB, process.env.USER, process.env.PA
   const db = {}
  db.Sequelize = Sequelize;
  db.sequelize = sequelize;
+ db.event = require("./Events")(sequelize, Sequelize);
+
+ module.exports = db;
