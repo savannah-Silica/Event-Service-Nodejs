@@ -1,19 +1,19 @@
 const express = require("express");
-const app = express();
 const db = require("./models/index");
 const dotenv = require("dotenv");
 const Events = require("./models/Events");
 dotenv.config();
-const PORT = process.env.PORT || 5000;
+const app = express();
+const PORT = process.env.APP_PORT || 5000;
 
 //database
 db.sequelize.sync()
-.then(() => {
-  console.log("Synced db.");
-})
-.catch((err) => {
-  console.log("Failed to sync db: " + err.message);
-});
+	.then(() => {
+		console.log("Synced db.");
+	})
+	.catch((err) => {
+		console.log("Failed to sync db: " + err.message);
+	});
 
 
 //routers
