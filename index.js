@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const db = require("./models/index");
 const dotenv = require("dotenv");
+const Events = require("./models/Events");
 dotenv.config();
 const PORT = process.env.PORT || 5000;
 
@@ -15,6 +16,12 @@ db.sequelize.sync()
 });
 
 
+//routers
+const router = require("./routers/eventsall");
+//
+app.use('/api',router);
+
+//
 app.listen(PORT, ()=>{
     console.log(`listening to port ${PORT}`);
 });
