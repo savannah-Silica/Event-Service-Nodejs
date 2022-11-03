@@ -1,8 +1,10 @@
 const express = require("express");
 const db = require("./models/index");
 const dotenv = require("dotenv");
+const swaggerUI = require ( 'swagger-ui-express');
 const EventsRoute = require("./routers/Events");
 const ErrorHandler = require("./ErrorHandler/ErrorHandler");
+const specs = require ( './controllers/utils/swagger');
 dotenv.config();
 const app = express();
 const PORT = process.env.APP_PORT || 5000;
@@ -19,6 +21,9 @@ db.sequelize.sync()
 
 //routers
 app.use('/api',EventsRoute);
+
+//API documentation:
+app.use ( '/api-docs', swaggerUI.serve, swaggerUI.setup (specs));
 
 //ErrorHandler
 app.use(ErrorHandler);
