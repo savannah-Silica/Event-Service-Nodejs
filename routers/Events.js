@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const {check } = require ('express-validator');
 const getOneEvent = require("../controllers/FindOneEvent");
 const getAllEvents = require("../controllers/FindAllEvents");
 const updateEvent = require("../controllers/UpateEvent");
@@ -109,7 +110,15 @@ router.get("/events/all", getAllEvents);
  *     description: Server error occurred when updating the event!
  */
 
-router.put("/events/:id", updateEvent);
+router.put("/events/:id", [
+    check ('title').not ().isEmpty ().escape ().withMessage ('Invalid title'),
+    check ('speakers').not ().isEmpty ().escape ().withMessage ('Invalid speaker details!'),
+    check ('category').not ().isEmpty ().escape ().withMessage ('Invalid category'),
+    check ('description').not ().isEmpty ().escape ().withMessage ('Invalid description'),
+    check ('media').not ().isEmpty ().withMessage ('Invalid media'),
+    check ('sponsors').not ().isEmpty ().escape ().withMessage ('Invalid sponsor details!'),
+    check ( 'partners').not ().isEmpty ().escape ().withMessage ( 'Invalid partner details!')
+],updateEvent);
 
 /**
  * @swagger
@@ -134,7 +143,9 @@ router.put("/events/:id", updateEvent);
  *     description: Server error occurred when creating the event
  */
 
-router.post("/events/create", createEvent);
+router.post("/events/create", [
+    check ( 'title').not ().isEmpty ().escape ().withMessage ( 'Invalid event title'),
+],createEvent);
 
 /**
  * @swagger
